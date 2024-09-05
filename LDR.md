@@ -1,5 +1,6 @@
 ![image](https://github.com/user-attachments/assets/bbe61a44-7854-422f-8f30-62193a8198ea)
 
+# LDR程式碼
 ```cpp
 // 設定引腳
 const int LDR_Pin = A0;   // 光敏電阻的類比輸入引腳
