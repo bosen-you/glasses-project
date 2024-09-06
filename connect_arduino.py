@@ -6,6 +6,7 @@ begin = 112500 #Serial.begin(112500)
 timeout = 1 # set time out
 record_date = []
 
+#arduino初始化
 ser = serial.Serial(port, begin, timeout=timeout)
 
 def read_data():
