@@ -1,4 +1,3 @@
-# [arduino程式碼](https://wokwi.com/projects/408150621395688449)
 ![image](https://github.com/user-attachments/assets/bbe61a44-7854-422f-8f30-62193a8198ea)
 
 # LDR程式碼
@@ -57,5 +56,5 @@ void loop() {
 }
 ```
 
-
+# [arduino程式碼](https://wokwi.com/projects/408150621395688449)
 
