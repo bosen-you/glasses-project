@@ -1,5 +1,5 @@
 # 專題名稱：光調機 - 光線調節器
-## 作者：bosen-you,EricbobXD
+## 作者：bosen-you,EricbobXD(Coderex._.bob)
 ## 目的：嘗試縮短鏡片變色的時間以降低眼睛所受到的強光傷害
 ## 原理：探討材料對電壓反應速率來達到目的
 
