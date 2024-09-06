@@ -7,14 +7,14 @@
 ### 目前進度: 撰寫程式碼並模擬
 
 1. 塗層材料
-    a. 聚苯胺   $3500(100g)
-    b. 氧化鎢  $472(50g)
-    c. 氧化鎳  $500(100g)
+    - 聚苯胺   $3500(100g)
+    - 氧化鎢  $472(50g)
+    - 氧化鎳  $500(100g)
 2. 材料
-    a. arduino nano V.30 (FT232)  $199
-    b. 玻璃 $
-    c. 小型麵包板 $32
-    d. LDR $25
+    - arduino nano V.30 (FT232)  $199
+    - 玻璃 $
+    - 小型麵包板 $32
+    - LDR $25
 
 
 [專題檔](https://docs.google.com/document/d/1Bi5reHUkopnPiSacCYxusBpsj2TGtz2r/edit)
