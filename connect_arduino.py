@@ -15,7 +15,7 @@ def read_data():
         if ser.in_waiting > 0:
             line = ser.readline().decode('utf-8').strip()  # read and decode date
             return int(line)
-    except ValueError: # if date can be converted to integer
+    except ValueError: # if date cannot be converted to integer
         return None
 
 def convert_date(sensor_value):
