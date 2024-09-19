@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Execution</title>
+    <style>
+        body {
+            background-color: #4f4f4f;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Style for the first section */
+        .first-section, .second-section {
+            background-color: #707070;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            width: 300px;
+        }
+
+        .first-section input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .first-section button {
+            background-color: #00C04A;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .second-section button {
+            background-color: #FF9500;
+        }
+
+        /* Hide the second section initially */
+        .second-section {
+            display: none;
+        }
+
+        /* Hide the first section after execution */
+        .first-section.hidden {
+            display: none;
+        }
+
+        .input-output-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        .input-output-buttons button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .input-output-buttons .input-btn {
+            background-color: #00AEEF;
+            color: white;
+        }
+
+        .input-output-buttons .output-btn {
+            background-color: #FF3B30;
+            color: white;
+        }
+
+        .second-section textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- First section -->
+    <div class="first-section" id="firstSection">
+        <input type="text" id="codeInput" placeholder="輸入程式碼">
+        <button onclick="executeCode()">執行</button>
+    </div>
+
+    <!-- Second section (hidden initially) -->
+    <div class="second-section" id="secondSection">
+        <textarea id="codeDisplay" rows="5" cols="30">程式碼</textarea>
+
+        <div class="input-output-buttons">
+            <button class="input-btn" onclick="setInput()">輸入欄位</button>
+            <button class="output-btn" onclick="setOutput()">輸出欄位</button>
+        </div>
+
+        <button onclick="reportError()">報錯</button>
+    </div>
+
+    <script>
+        function executeCode() {
+            // Hide the first section
+            document.getElementById("firstSection").classList.add("hidden");
+            
+            // Show the second section
+            document.getElementById("secondSection").style.display = "block";
+            
+            // Get the code from the input and display it in the textarea
+            let code = document.getElementById("codeInput").value;
+            document.getElementById("codeDisplay").value = code;
+        }
+
+        function setInput() {
+            document.getElementById("codeDisplay").value += '\n[輸入欄位]';
+        }
+
+        function setOutput() {
+            document.getElementById("codeDisplay").value += '\n[輸出欄位]';
+        }
+
+        function reportError() {
+            alert("報錯");
+        }
+    </script>
+
+</body>
+</html>
