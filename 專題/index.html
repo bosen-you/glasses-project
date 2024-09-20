@@ -1,141 +1,120 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program Execution</title>
+    <title>Blockly C++ Editor</title>
+    <link rel="stylesheet" href="https://unpkg.com/minecraft-framework-css@1.1.9/css/main.css">
+    <script src="https://unpkg.com/minecraft-framework-css@1.1.9/css/assets/script.js"></script>
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <style>
-        body {
-            background-color: #4f4f4f;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+        #blocklyDiv {
+            height: 480px;
+            width: 80%;
+            border: 2px solid #ccc;
         }
-
-        /* Style for the first section */
-        .first-section, .second-section {
-            background-color: #707070;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            width: 300px;
+        #controls {
+            margin-left: 20px;
         }
-
-        .first-section input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-        .first-section button {
-            background-color: #00C04A;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .second-section button {
-            background-color: #FF9500;
-        }
-
-        /* Hide the second section initially */
-        .second-section {
-            display: none;
-        }
-
-        /* Hide the first section after execution */
-        .first-section.hidden {
-            display: none;
-        }
-
-        .input-output-buttons {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 10px;
-        }
-
-        .input-output-buttons button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .input-output-buttons .input-btn {
-            background-color: #00AEEF;
-            color: white;
-        }
-
-        .input-output-buttons .output-btn {
-            background-color: #FF3B30;
-            color: white;
-        }
-
-        .second-section textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
+        button, input[type="file"] {
+            display: block;
             margin: 10px 0;
         }
-
+        input[type="file"] {
+            padding: 8px;
+        }
     </style>
 </head>
-<body>
+<body><!-- cursor="arrow" -->
+    <div class="container">
+        <h1 class="header">Blockly C++ Editor</h1>
 
-    <!-- First section -->
-    <div class="first-section" id="firstSection">
-        <input type="text" id="codeInput" placeholder="輸入程式碼">
-        <button onclick="executeCode()">執行</button>
-    </div>
+        <!-- Blockly Workspace -->
+        <div id="blocklyDiv" class="dialogue-box"></div>
 
-    <!-- Second section (hidden initially) -->
-    <div class="second-section" id="secondSection">
-        <textarea id="codeDisplay" rows="5" cols="30">程式碼</textarea>
-
-        <div class="input-output-buttons">
-            <button class="input-btn" onclick="setInput()">輸入欄位</button>
-            <button class="output-btn" onclick="setOutput()">輸出欄位</button>
+        <!-- Controls Section -->
+        <div id="controls">
+            <button class="button" onclick="saveWorkspaceAsXML()">Download .xml</button>
+            <input class="input-text" type="file" id="uploadXML" onchange="loadWorkspaceFromXML(event)">
+            
+            <button class="button-java" onclick="saveCodeAsCPP()">Download .cpp</button>
+            <input class="input-text" type="file" id="uploadCPP" onchange="loadCodeFromCPP(event)">
         </div>
-
-        <button onclick="reportError()">報錯</button>
     </div>
 
     <script>
-        function executeCode() {
-            // Hide the first section
-            document.getElementById("firstSection").classList.add("hidden");
-            
-            // Show the second section
-            document.getElementById("secondSection").style.display = "block";
-            
-            // Get the code from the input and display it in the textarea
-            let code = document.getElementById("codeInput").value;
-            document.getElementById("codeDisplay").value = code;
+        // Blockly workspace setup with categorized toolbox
+        var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: `
+                <xml>
+                    <category name="變數" colour="#FFAB19">
+                        <block type="variables_get"></block>
+                        <block type="variables_set"></block>
+                    </category>
+                    <category name="自訂義函式" colour="#5C81A6">
+                        <block type="procedures_defnoreturn"></block>
+                        <block type="procedures_callnoreturn"></block>
+                    </category>
+                    <category name="擴充" colour="#5CA65C">
+                        <block type="text_print"></block>
+                        <block type="math_number"></block>
+                        <block type="logic_compare"></block>
+                    </category>
+                    <category name="邏輯" colour="#FF6680">
+                        <block type="controls_if"></block>
+                        <block type="logic_boolean"></block>
+                    </category>
+                    <category name="數學" colour="#5CA65C">
+                        <block type="math_arithmetic"></block>
+                        <block type="math_random_int"></block>
+                    </category>
+                    <category name="文本" colour="#5CA68D">
+                        <block type="text"></block>
+                        <block type="text_length"></block>
+                    </category>
+                </xml>
+            `,
+        });
+
+        function saveWorkspaceAsXML() {
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            var xmlText = Blockly.Xml.domToPrettyText(xml);
+            var blob = new Blob([xmlText], {type: "text/xml"});
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "workspace.xml";
+            link.click();
         }
 
-        function setInput() {
-            document.getElementById("codeDisplay").value += '\n[輸入欄位]';
+        function loadWorkspaceFromXML(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function() {
+                var xmlText = reader.result;
+                var xml = Blockly.Xml.textToDom(xmlText);
+                Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
+            };
+            reader.readAsText(file);
         }
 
-        function setOutput() {
-            document.getElementById("codeDisplay").value += '\n[輸出欄位]';
+        function saveCodeAsCPP() {
+            var cppCode = Blockly.JavaScript.workspaceToCode(workspace);  // Replace with C++ generator
+            var blob = new Blob([cppCode], {type: "text/plain"});
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "program.cpp";
+            link.click();
         }
 
-        function reportError() {
-            alert("報錯");
+        function loadCodeFromCPP(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function() {
+                var cppCode = reader.result;
+                console.log(cppCode);  // Implement C++ parsing logic here
+            };
+            reader.readAsText(file);
         }
     </script>
-
 </body>
 </html>
