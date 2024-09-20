@@ -25,7 +25,7 @@
         }
     </style>
 </head>
-<body><!-- cursor="arrow" -->
+<body>
     <div class="container">
         <h1 class="header">Blockly C++ Editor</h1>
 
@@ -37,7 +37,7 @@
             <button class="button" onclick="saveWorkspaceAsXML()">Download .xml</button>
             <input class="input-text" type="file" id="uploadXML" onchange="loadWorkspaceFromXML(event)">
             
-            <button class="button-java" onclick="saveCodeAsCPP()">Download .cpp</button>
+            <button class="button" onclick="saveCodeAsCPP()">Download .cpp</button>
             <input class="input-text" type="file" id="uploadCPP" onchange="loadCodeFromCPP(event)">
         </div>
     </div>
@@ -50,27 +50,34 @@
                     <category name="變數" colour="#FFAB19">
                         <block type="variables_get"></block>
                         <block type="variables_set"></block>
+                        <block type="math_change"></block>
+                        <block type="variables_declare"></block>
                     </category>
                     <category name="自訂義函式" colour="#5C81A6">
                         <block type="procedures_defnoreturn"></block>
                         <block type="procedures_callnoreturn"></block>
+                        <block type="procedures_defreturn"></block>
                     </category>
                     <category name="擴充" colour="#5CA65C">
                         <block type="text_print"></block>
                         <block type="math_number"></block>
                         <block type="logic_compare"></block>
+                        <block type="text_join"></block>
                     </category>
                     <category name="邏輯" colour="#FF6680">
                         <block type="controls_if"></block>
                         <block type="logic_boolean"></block>
+                        <block type="controls_repeat_ext"></block>
                     </category>
                     <category name="數學" colour="#5CA65C">
                         <block type="math_arithmetic"></block>
                         <block type="math_random_int"></block>
+                        <block type="math_round"></block>
                     </category>
                     <category name="文本" colour="#5CA68D">
                         <block type="text"></block>
                         <block type="text_length"></block>
+                        <block type="text_isEmpty"></block>
                     </category>
                 </xml>
             `,
