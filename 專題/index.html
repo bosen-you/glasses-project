@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blockly C++ Editor</title>
+    <title>Blockly C++</title>
     <link rel="stylesheet" href="https://unpkg.com/minecraft-framework-css@1.1.9/css/main.css">
     <script src="https://unpkg.com/minecraft-framework-css@1.1.9/css/assets/script.js"></script>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
@@ -44,16 +44,16 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="dialogue-box">Blockly C++ Editor</h1>
+    <div class="container" cursor="pointer">
+        <h1 class="dialogue-box">Blockly C++ Editor By Ericbob</h1>
         <div class="workspace-controls-container">
             <div id="blocklyDiv" class="dialogue-box"></div>
             <div id="controls">
                 <button class="button-java" onclick="saveWorkspaceAsXML()">Download XML</button>
-                <label for="uploadXML">Upload an XML file:</label>
+                <label for="uploadXML">Upload a file [XML (.xml)]:</label>
                 <input class="input-text" type="file" id="uploadXML" accept=".xml" onchange="handleXMLUpload(event)">
                 <button class="button-java" onclick="saveCodeAsCPP()">Download C++</button>
-                <label for="uploadCPP">Upload a C++ (.cpp) file:</label>
+                <label for="uploadCPP">Upload a file [C++ (.cpp)]:</label>
                 <input class="input-text" type="file" id="uploadCPP" accept=".cpp" onchange="loadCodeFromCPP(event)">
             </div>
         </div>
