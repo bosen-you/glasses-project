@@ -8,18 +8,36 @@
     <script src="https://unpkg.com/minecraft-framework-css@1.1.9/css/assets/script.js"></script>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <style>
+        .container {
+            display: flex;
+            flex-direction: column; /* Keep the title at the top */
+            height: 90vh;
+        }
+    
+        .workspace-controls-container {
+            display: flex;
+            flex-direction: row; /* Horizontal layout for Blockly and controls */
+            height: 100%; /* Full height of the remaining viewport */
+        }
+    
         #blocklyDiv {
-            height: 480px;
-            width: 80%;
+            height: 100%; /* Full height */
+            width: 70%; /* Adjusted width to fit beside controls */
             border: 2px solid #ccc;
         }
+    
         #controls {
+            height: 100%; /* Full height */
+            width: 30%; /* Adjusted width */
             margin-left: 20px;
+            overflow-y: auto; /* Allow scrolling if needed */
         }
+    
         button, input[type="file"] {
             display: block;
             margin: 10px 0;
         }
+    
         input[type="file"] {
             padding: 8px;
         }
@@ -27,100 +45,104 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="header">Blockly C++ Editor</h1>
+        <h1 class="dialogue-box">Blockly C++ Editor</h1>
 
-        <!-- Blockly Workspace -->
-        <div id="blocklyDiv" class="dialogue-box"></div>
+        <!-- Workspace and Controls in Horizontal Layout -->
+        <div class="workspace-controls-container">
+            <!-- Blockly Workspace -->
+            <div id="blocklyDiv" class="dialogue-box"></div>
 
-        <!-- Controls Section -->
-        <div id="controls">
-            <button class="button" onclick="saveWorkspaceAsXML()">Download .xml</button>
-            <input class="input-text" type="file" id="uploadXML" onchange="loadWorkspaceFromXML(event)">
-            
-            <button class="button" onclick="saveCodeAsCPP()">Download .cpp</button>
-            <input class="input-text" type="file" id="uploadCPP" onchange="loadCodeFromCPP(event)">
+            <!-- Controls Section -->
+            <div id="controls">
+                <button class="button-java" onclick="saveWorkspaceAsXML()">Download XML</button>
+                
+                <!-- XML Upload with description and file type restriction -->
+                <label for="uploadXML">Upload an XML file:</label>
+                <input class="input-text" type="file" id="uploadXML" accept=".xml" onchange="loadWorkspaceFromXML(event)">
+                
+                <button class="button-java" onclick="saveCodeAsCPP()">Download C++</button>
+
+                <!-- CPP Upload with description and file type restriction -->
+                <label for="uploadCPP">Upload a C++ (.cpp) file:</label>
+                <input class="input-text" type="file" id="uploadCPP" accept=".cpp" onchange="loadCodeFromCPP(event)">
+            </div>
         </div>
     </div>
 
+    <!-- Blockly Libraries -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script>
-        // Blockly workspace setup with categorized toolbox
         var workspace = Blockly.inject('blocklyDiv', {
-            toolbox: `
+            toolbox: ` 
                 <xml>
+                    <category name="數學&邏輯" colour="#5C81A6">
+                        <block type="controls_if"></block>
+                        <block type="logic_boolean"></block>
+                        <block type="logic_compare"></block>
+                        <block type="math_arithmetic"></block>
+                        <block type="math_number"></block>
+                    </category>
+                    <category name="迴圈" colour="#5CA65C">
+                        <block type="controls_repeat_ext"></block>
+                    </category>
+                    <category name="文本" colour="#5CA68D">
+                        <block type="text"></block>
+                    </category>
                     <category name="變數" colour="#FFAB19">
                         <block type="variables_get"></block>
                         <block type="variables_set"></block>
                         <block type="math_change"></block>
-                        <block type="variables_declare"></block>
                     </category>
-                    <category name="自訂義函式" colour="#5C81A6">
+                    <category name="函式" colour="#FF6680">
                         <block type="procedures_defnoreturn"></block>
                         <block type="procedures_callnoreturn"></block>
                         <block type="procedures_defreturn"></block>
                     </category>
-                    <category name="擴充" colour="#5CA65C">
-                        <block type="text_print"></block>
-                        <block type="math_number"></block>
-                        <block type="logic_compare"></block>
-                        <block type="text_join"></block>
-                    </category>
-                    <category name="邏輯" colour="#FF6680">
-                        <block type="controls_if"></block>
-                        <block type="logic_boolean"></block>
-                        <block type="controls_repeat_ext"></block>
-                    </category>
-                    <category name="數學" colour="#5CA65C">
-                        <block type="math_arithmetic"></block>
-                        <block type="math_random_int"></block>
-                        <block type="math_round"></block>
-                    </category>
-                    <category name="文本" colour="#5CA68D">
-                        <block type="text"></block>
-                        <block type="text_length"></block>
-                        <block type="text_isEmpty"></block>
-                    </category>
                 </xml>
-            `,
+            `
         });
 
+        // Save the workspace as XML
         function saveWorkspaceAsXML() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
             var xmlText = Blockly.Xml.domToPrettyText(xml);
-            var blob = new Blob([xmlText], {type: "text/xml"});
-            var link = document.createElement("a");
-            link.href = window.URL.createObjectURL(blob);
-            link.download = "workspace.xml";
+            var blob = new Blob([xmlText], { type: 'text/xml' });
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'workspace.xml';
             link.click();
         }
 
+        // Load XML file and convert to Blockly workspace
         function loadWorkspaceFromXML(event) {
             var file = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function() {
-                var xmlText = reader.result;
-                var xml = Blockly.Xml.textToDom(xmlText);
-                Blockly.Xml.clearWorkspaceAndLoadFromXml(xml, workspace);
-            };
-            reader.readAsText(file);
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var xmlText = e.target.result;
+                    var parser = new DOMParser();
+                    var xml = parser.parseFromString(xmlText, "text/xml");
+
+                    // Clear existing workspace and load the new one
+                    Blockly.Xml.clearWorkspaceAndLoadFromXml(xml.documentElement, workspace);
+                };
+                reader.readAsText(file);
+            }
         }
 
+        // Save the C++ code as a file
         function saveCodeAsCPP() {
-            var cppCode = Blockly.JavaScript.workspaceToCode(workspace);  // Replace with C++ generator
-            var blob = new Blob([cppCode], {type: "text/plain"});
-            var link = document.createElement("a");
-            link.href = window.URL.createObjectURL(blob);
-            link.download = "program.cpp";
+            var cppCode = Blockly.Cpp.workspaceToCode(workspace);
+            var blob = new Blob([cppCode], { type: 'text/plain' });
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'program.cpp';
             link.click();
         }
 
+        // Load C++ code from a file (this would require a custom handler, not part of Blockly)
         function loadCodeFromCPP(event) {
-            var file = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function() {
-                var cppCode = reader.result;
-                console.log(cppCode);  // Implement C++ parsing logic here
-            };
-            reader.readAsText(file);
+            // Logic to process and load C++ files can be added here
         }
     </script>
 </body>
