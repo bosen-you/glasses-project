@@ -10,27 +10,27 @@
     <style>
         .container {
             display: flex;
-            flex-direction: column; /* Keep the title at the top */
+            flex-direction: column;
             height: 90vh;
         }
     
         .workspace-controls-container {
             display: flex;
-            flex-direction: row; /* Horizontal layout for Blockly and controls */
-            height: 100%; /* Full height of the remaining viewport */
+            flex-direction: row;
+            height: 100%;
         }
     
         #blocklyDiv {
-            height: 100%; /* Full height */
-            width: 70%; /* Adjusted width to fit beside controls */
+            height: 100%;
+            width: 70%;
             border: 2px solid #ccc;
         }
     
         #controls {
-            height: 100%; /* Full height */
-            width: 30%; /* Adjusted width */
+            height: 100%;
+            width: 30%;
             margin-left: 20px;
-            overflow-y: auto; /* Allow scrolling if needed */
+            overflow-y: auto;
         }
     
         button, input[type="file"] {
@@ -46,30 +46,19 @@
 <body>
     <div class="container">
         <h1 class="dialogue-box">Blockly C++ Editor</h1>
-
-        <!-- Workspace and Controls in Horizontal Layout -->
         <div class="workspace-controls-container">
-            <!-- Blockly Workspace -->
             <div id="blocklyDiv" class="dialogue-box"></div>
-
-            <!-- Controls Section -->
             <div id="controls">
                 <button class="button-java" onclick="saveWorkspaceAsXML()">Download XML</button>
-                
-                <!-- XML Upload with description and file type restriction -->
                 <label for="uploadXML">Upload an XML file:</label>
-                <input class="input-text" type="file" id="uploadXML" accept=".xml" onchange="loadWorkspaceFromXML(event)">
-                
+                <input class="input-text" type="file" id="uploadXML" accept=".xml" onchange="handleXMLUpload(event)">
                 <button class="button-java" onclick="saveCodeAsCPP()">Download C++</button>
-
-                <!-- CPP Upload with description and file type restriction -->
                 <label for="uploadCPP">Upload a C++ (.cpp) file:</label>
                 <input class="input-text" type="file" id="uploadCPP" accept=".cpp" onchange="loadCodeFromCPP(event)">
             </div>
         </div>
     </div>
 
-    <!-- Blockly Libraries -->
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script>
         var workspace = Blockly.inject('blocklyDiv', {
@@ -102,7 +91,6 @@
             `
         });
 
-        // Save the workspace as XML
         function saveWorkspaceAsXML() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
             var xmlText = Blockly.Xml.domToPrettyText(xml);
@@ -113,24 +101,25 @@
             link.click();
         }
 
-        // Load XML file and convert to Blockly workspace
-        function loadWorkspaceFromXML(event) {
+        function handleXMLUpload(event) {
             var file = event.target.files[0];
             if (file) {
+                if (workspace.getAllBlocks().length > 0) {
+                    var confirmReplace = confirm("You have unsaved blocks. Do you want to replace the current workspace?");
+                    if (!confirmReplace) return; // Cancel the upload
+                }
+                
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     var xmlText = e.target.result;
                     var parser = new DOMParser();
                     var xml = parser.parseFromString(xmlText, "text/xml");
-
-                    // Clear existing workspace and load the new one
                     Blockly.Xml.clearWorkspaceAndLoadFromXml(xml.documentElement, workspace);
                 };
                 reader.readAsText(file);
             }
         }
 
-        // Save the C++ code as a file
         function saveCodeAsCPP() {
             var cppCode = Blockly.Cpp.workspaceToCode(workspace);
             var blob = new Blob([cppCode], { type: 'text/plain' });
@@ -140,7 +129,6 @@
             link.click();
         }
 
-        // Load C++ code from a file (this would require a custom handler, not part of Blockly)
         function loadCodeFromCPP(event) {
             // Logic to process and load C++ files can be added here
         }
