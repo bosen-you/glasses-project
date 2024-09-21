@@ -8,18 +8,19 @@
     <script src="https://unpkg.com/minecraft-framework-css@1.1.9/css/assets/script.js"></script>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <style>
+        /* 設定了一個佈局為垂直排列的區塊，佔據 90% 的瀏覽器高度 */
         .container {
             display: flex;
             flex-direction: column;
             height: 90vh;
         }
-    
+        /* 左側顯示 Blockly 編輯器，右側顯示控制按鈕區 */
         .workspace-controls-container {
             display: flex;
             flex-direction: row;
             height: 100%;
         }
-    
+        /* 定義 Blockly 工作區的大小和邊框 */
         #blocklyDiv {
             height: 100%;
             width: 100%;
@@ -316,6 +317,33 @@
                             </value>
                         </block>
                         <block type="lists_sort"></block>
+                    </category>
+                    <category name = "標準函式庫" colour = "400">
+                        <category name = "array" colour = "450">   
+                            <category name = "vector" colour = "500">
+                                <description> first in last out(FILO) </description>
+
+                            </category>
+                            <category name = "deque" colour = "501">
+                                <description> first in first out(FIFO) </description>
+
+                            </category>
+                            <category name = "set" colour = "503">
+                                <description> container that contains a sorted set of unique objects of type Key </description>
+
+                            </category>
+                            <category name = "unordered_set" colour = "504">
+                            </category>
+                        </category>
+                    <category name = "algorithm" colour = "500">
+
+                    </category>
+                    <category name = "string" colour = "500">
+
+                    </category>
+                    <category name = "climit" colour = "500">
+
+                    </category>
                     </category>
                     <sep></sep>
                     <category name="變數" colour="330" custom="VARIABLE"></category>
