@@ -116,6 +116,11 @@
                         <category name="輸入與輸出" colour="120">
                             <block type="cin_block"></block>
                             <block type="cout_block"></block>
+                            <block type="scanf_block"></block>
+                            <block type="printf_block"></block>
+                            <block type="boost_ios_sync"></block>
+                            <block type="boost_cin_tie"></block>
+                            <block type="boost_cout_tie"></block>
                         </category>
                         <sep></sep>
                         <category name="主程式框架" colour="0">
@@ -135,36 +140,44 @@
         Blockly.defineBlocksWithJsonArray([
             {//cin
                 "type": "cin_block",
-                "message0": "cin %1",
+                "message0": "cin >> %1",
                 "args0": [
                     {
-                        "type": "input_value",
-                        "name": "VAR",
-                        "check": "Variable"
+                    "type": "input_value",
+                    "name": "VARIABLES",
+                    "check": "Array" // 用於存放多個輸入變量
                     }
                 ],
-                "previousStatement": null,
-                "nextStatement": null,
+                "inputsInline": true,
+                "output": "Void",
                 "colour": 120,
-                "tooltip": "從標準輸入讀取並存儲到變數中",
+                "tooltip": "Inputs multiple values from the console.",
                 "helpUrl": ""
             },
             {//cout
                 "type": "cout_block",
-                "message0": "cout %1",
+                "message0": "cout << %1 %2",
                 "args0": [
                     {
-                        "type": "input_value",
-                        "name": "TEXT",
-                        "check": "String"
+                    "type": "input_value",
+                    "name": "VALUE",
+                    "check": "Array"
+                    },
+                    {
+                    "type": "field_dropdown",
+                    "name": "ENDL_OPTION",
+                    "options": [
+                        ["no endl", ""],
+                        ["<< endl", "endl"]
+                    ]
                     }
                 ],
-                "previousStatement": null,
-                "nextStatement": null,
+                "inputsInline": true,
+                "output": "Void",
                 "colour": 120,
-                "tooltip": "輸出文本或變數的值到標準輸出",
+                "tooltip": "Outputs value to the console.",
                 "helpUrl": ""
-            },
+                },
             {//if
                 "type": "controls_if",
                 "message0": "if %1",
@@ -685,8 +698,108 @@
                 "colour": 230,
                 "tooltip": "隨機數生成",
                 "helpUrl": ""
+            },
+            {//ios sync
+                "type": "boost_ios_sync",
+                "message0": "ios::sync_with_stdio(0); %1",
+                "args0": [
+                    {
+                    "type": "input_value",
+                    "name": "VALUE"
+                    }
+                ],
+                "output": "null",
+                "colour": 160,
+                "tooltip": "禁用同步以提高輸入輸出效率",
+                "helpUrl": ""
+            },
+            {//cin tie
+                "type": "boost_cin_tie",
+                "message0": "cin.tie(0); %1",
+                "args0": [
+                    {
+                    "type": "input_value",
+                    "name": "VALUE"
+                    }
+                ],
+                "output": "null",
+                "colour": 160,
+                "tooltip": "解除 cin 和 cout 的綁定",
+                "helpUrl": ""
+            },
+            {//cout tie
+                "type": "boost_cout_tie",
+                "message0": "cout.tie(0); %1",
+                "args0": [
+                    {
+                    "type": "input_value",
+                    "name": "VALUE"
+                    }
+                ],
+                "output": "null",
+                "colour": 160,
+                "tooltip": "解除 cout 和 cin 的綁定",
+                "helpUrl": ""
+            },
+            {//scanf
+                "type": "scanf_block",
+                "message0": "scanf(%1, %2)",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "FORMAT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "VARIABLE"
+                    }
+                ],
+                "output": "null",
+                "colour": 120,
+                "tooltip": "使用 scanf 讀取輸入",
+                "helpUrl": ""
+            },
+            {//printf
+                "type": "printf_block",
+                "message0": "printf(%1, %2)",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "FORMAT"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "VARIABLE"
+                    }
+                ],
+                "output": "null",
+                "colour": 120,
+                "tooltip": "使用 printf 輸出格式化的字串",
+                "helpUrl": ""
             }
         ]);
+
+        Blockly.Cpp['boost_scanf'] = function(block) {
+            var format = Blockly.Cpp.valueToCode(block, 'FORMAT', Blockly.Cpp.ORDER_ATOMIC);
+            return 'scanf("%s", ' + format + ');\n';
+        };
+
+        Blockly.Cpp['boost_printf'] = function(block) {
+            var format = Blockly.Cpp.valueToCode(block, 'FORMAT', Blockly.Cpp.ORDER_ATOMIC);
+            return 'printf("%s", ' + format + ');\n';
+        };
+
+        Blockly.Cpp['boost_ios_sync'] = function(block) {
+            return 'std::ios::sync_with_stdio(0);\n';
+        };
+
+        Blockly.Cpp['boost_cin_tie'] = function(block) {
+            return 'std::cin.tie(0);\n';
+        };
+
+        Blockly.Cpp['boost_cout_tie'] = function(block) {
+            return 'std::cout.tie(0);\n';
+        };
 
         Blockly.cpp['include_bits/stdc++.h'] = function(block) {
             return '#include <bits/stdc++.h>\n';
