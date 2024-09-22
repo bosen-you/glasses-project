@@ -99,33 +99,7 @@
                             <block type="main_block"></block>
                         </category>
                         <category name="函式庫" colour="0">
-                            <category name="iostream" colour="300">
-                                <block type="include_iostream"></block>
-                            </category>
-                            <category name="vector" colour="300">
-                                <block type="include_vector"></block>
-                            </category>
-                            <category name="string" colour="300">
-                                <block type="include_string"></block>
-                            </category>
-                            <category name="algorithm" colour="300">
-                                <block type="include_algorithm"></block>
-                            </category>
-                            <category name="map" colour="300">
-                                <block type="include_map"></block>
-                            </category>
-                            <category name="set" colour="300">
-                                <block type="include_set"></block>
-                            </category>
-                            <category name="list" colour="300">
-                                <block type="include_list"></block>
-                            </category>
-                            <category name="queue" colour="300">
-                                <block type="include_queue"></block>
-                            </category>
-                            <category name="stack" colour="300">
-                                <block type="include_stack"></block>
-                            </category>
+                            <block type="include_bits/stdc++.h"></block>
                         </category>
                         <sep></sep>
                         <category name="測試 Block" colour="290">
@@ -487,122 +461,18 @@
                 "tooltip": "獲取變數的值",
                 "helpUrl": ""
             },
-            {//include iostream
-                "type": "include_iostream",
-                "message0": "#include <iostream>",
+            {//#include <bits/stdc++.h>
+                "type": "include_bits/stdc++.h",
+                "message0": "#include <bits/stdc++.h>",
                 "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include iostream for input/output",
-                "helpUrl": ""
-            },
-            {//include vector
-                "type": "include_vector",
-                "message0": "#include <vector>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include vector for dynamic array",
-                "helpUrl": ""
-            },
-            {//include string
-                "type": "include_string",
-                "message0": "#include <string>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include string for string handling",
-                "helpUrl": ""
-            },
-            {//include algorithm
-                "type": "include_algorithm",
-                "message0": "#include <algorithm>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include algorithm for algorithms like sort",
-                "helpUrl": ""
-            },
-            {//include map
-                "type": "include_map",
-                "message0": "#include <map>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include map for key-value pairs",
-                "helpUrl": ""
-            },
-            {//include set
-                "type": "include_set",
-                "message0": "#include <set>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include set for unique elements",
-                "helpUrl": ""
-            },
-            {//include list
-                "type": "include_list",
-                "message0": "#include <list>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include list for doubly linked list",
-                "helpUrl": ""
-            },
-            {//include queue
-                "type": "include_queue",
-                "message0": "#include <queue>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include queue for FIFO data structure",
-                "helpUrl": ""
-            },
-            {//include stack
-                "type": "include_stack",
-                "message0": "#include <stack>",
-                "previousStatement": null,
-                "nextStatement": null,
-                "colour": 300,
-                "tooltip": "Include stack for stack implementation",
+                "colour": 0,
+                "tooltip": "Include all",
                 "helpUrl": ""
             }
         ]);
 
-        Blockly.cpp['include_iostream'] = function(block) {
-            return '#include <iostream>\n';
-        };
-
-        Blockly.cpp['include_vector'] = function(block) {
-            return '#include <vector>\n';
-        };
-
-        Blockly.cpp['include_string'] = function(block) {
-            return '#include <string>\n';
-        };
-
-        Blockly.cpp['include_algorithm'] = function(block) {
-            return '#include <algorithm>\n';
-        };
-
-        Blockly.cpp['include_map'] = function(block) {
-            return '#include <map>\n';
-        };
-
-        Blockly.cpp['include_set'] = function(block) {
-            return '#include <set>\n';
-        };
-
-        Blockly.cpp['include_list'] = function(block) {
-            return '#include <list>\n';
-        };
-
-        Blockly.cpp['include_queue'] = function(block) {
-            return '#include <queue>\n';
-        };
-
-        Blockly.cpp['include_stack'] = function(block) {
-            return '#include <stack>\n';
+        Blockly.cpp['include_bits/stdc++.h'] = function(block) {
+            return '#include <bits/stdc++.h>\n';
         };
 
         Blockly.Cpp['variable_declaration'] = function(block) {
