@@ -108,7 +108,7 @@
         });
 
         Blockly.defineBlocksWithJsonArray([
-            {
+            {//cin
                 "type": "cin_block",
                 "message0": "cin %1",
                 "args0": [
@@ -124,7 +124,7 @@
                 "tooltip": "從標準輸入讀取並存儲到變數中",
                 "helpUrl": ""
             },
-            {
+            {//cout
                 "type": "cout_block",
                 "message0": "cout %1",
                 "args0": [
@@ -140,7 +140,7 @@
                 "tooltip": "輸出文本或變數的值到標準輸出",
                 "helpUrl": ""
             },
-            {
+            {//if
                 "type": "controls_if",
                 "message0": "if %1",
                 "args0": [
@@ -164,7 +164,7 @@
                 "helpUrl": "",
                 "mutator": "controls_if_mutator"
             },
-            {
+            {//for
                 "type": "for_block",
                 "message0": "for %1  %2  %3  %4   %5 ",
                 "args0": [
@@ -199,7 +199,7 @@
                 "tooltip": "重複執行直到條件為假",
                 "helpUrl": ""
             },
-            {
+            {//while
                 "type": "while_block",
                 "message0": "while %1  %2 ",
                 "args0": [
@@ -219,7 +219,7 @@
                 "tooltip": "重複執行直到條件為假",
                 "helpUrl": ""
             },
-            {
+            {//int mian()
                 "type": "main_block",
                 "message0": "int main() %1 %2 return %3",
                 "args0": [
@@ -241,7 +241,7 @@
                 "tooltip": "主函式，接受命令行參數",
                 "helpUrl": ""
             },
-            {
+            {//switch
                 "type": "switch_block",
                 "message0": "switch %1 %2 %3",
                 "args0": [
@@ -263,7 +263,7 @@
                 "tooltip": "Switch 語句",
                 "helpUrl": ""
             },
-            {
+            {//case
                 "type": "case_block",
                 "message0": "case %1: %2",
                 "args0": [
@@ -282,7 +282,7 @@
                 "tooltip": "Case 語句",
                 "helpUrl": ""
             },
-            {
+            {//default
                 "type": "default_block",
                 "message0": "default: %1",
                 "args0": [
@@ -296,7 +296,7 @@
                 "tooltip": "Default 語句",
                 "helpUrl": ""
             },
-            {
+            {//break
                 "type": "break_block",
                 "message0": "break",
                 "colour": 260,
@@ -305,7 +305,7 @@
                 "tooltip": "退出當前的循環或 switch 語句",
                 "helpUrl": ""
             },
-            {
+            {//continue
                 "type": "continue_block",
                 "message0": "continue",
                 "colour": 260,
@@ -314,7 +314,7 @@
                 "tooltip": "跳過當前迴圈的剩餘部分，直接進入下一次迴圈",
                 "helpUrl": ""
             },
-            {
+            {//return
                 "type": "return_block",
                 "message0": "return %1",
                 "args0": [
@@ -329,7 +329,7 @@
                 "tooltip": "從函式返回值",
                 "helpUrl": ""
             },
-            {
+            {//def function
                 "type": "basic_function_definition",
                 "message0": "function %1 %2 %3 %4 %5",
                 "args0": [
@@ -365,7 +365,7 @@
                 "tooltip": "定義一個基本的 C++ 函數",
                 "helpUrl": ""
             },
-            {
+            {//cll function
                 "type": "function_call",
                 "message0": "%1",
                 "args0": [
@@ -381,7 +381,7 @@
                 "tooltip": "調用一個函數",
                 "helpUrl": ""
             },
-            {
+            {//comment
                 "type": "comment_block",
                 "message0": "// %1",
                 "args0": [
@@ -397,7 +397,7 @@
                 "tooltip": "添加註解",
                 "helpUrl": ""
             },
-            {
+            {//def variable
                 "type": "variable_declaration",
                 "message0": "declare %1 %2 = %3",
                 "args0": [
@@ -426,7 +426,7 @@
                 "tooltip": "宣告一個變數",
                 "helpUrl": ""
             },
-            {
+            {//variable equals
                 "type": "variable_assignment",
                 "message0": "%1 = %2",
                 "args0": [
@@ -444,7 +444,7 @@
                 "tooltip": "賦予變數新的值或算式",
                 "helpUrl": ""
             },
-            {
+            {//get variable vaule
                 "type": "variable_get",
                 "message0": "%1",
                 "args0": [
