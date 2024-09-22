@@ -73,6 +73,9 @@
                             <block type="function_call"></block>
                         </category>
                         <category name="邏輯運算子" colour="210">
+                            <block type="or_and_xor"></block>
+                            <block type="logic_operators"></block>
+                            <block type="logic_not"></block>
                         </category>
                         <category name="數學與運算" colour="230">
                         </category>
@@ -168,7 +171,7 @@
             },
             {//for
                 "type": "for_block",
-                "message0": "for %1  %2  %3  %4   %5 ",
+                "message0": "for %1 = %2 ; %3 ; %4   %5 ",
                 "args0": [
                     {
                         "type": "field_variable",
@@ -197,6 +200,7 @@
                 ],
                 "previousStatement": null,
                 "nextStatement": null,
+                "inputsInline": true,
                 "colour": 260,
                 "tooltip": "重複執行直到條件為假",
                 "helpUrl": ""
@@ -468,6 +472,79 @@
                 "nextStatement": null,
                 "colour": 0,
                 "tooltip": "Include all",
+                "helpUrl": ""
+            },
+            {//or and xor
+                "type": "or_and_xor",
+                "message0": "%1 %2 %3",
+                "args0": [
+                    {
+                    "type": "input_value",
+                    "name": "A"
+                    },
+                    {
+                    "type": "field_dropdown",
+                    "name": "OPERATOR",
+                    "options": [
+                        ["&&", "AND"],
+                        ["||", "OR"],
+                        ["^", "XOR"]
+                    ]
+                    },
+                    {
+                    "type": "input_value",
+                    "name": "B"
+                    }
+                ],
+                "output": "Boolean",
+                "colour": 210,
+                "inputsInline": true,
+                "tooltip": "or and xor",
+                "helpUrl": ""
+            },
+            {//logic operators
+                "type": "logic_operators",
+                "message0": "%1 %2 %3",
+                "args0": [
+                    {
+                    "type": "input_value",
+                    "name": "A"
+                    },
+                    {
+                    "type": "field_dropdown",
+                    "name": "OPERATOR",
+                    "options": [
+                        ["==", "EQUAL"],
+                        ["!=", "NOT_EQUAL"],
+                        [">", "GREATER"],
+                        ["<", "LESS"],
+                        [">=", "GREATER_EQUAL"],
+                        ["<=", "LESS_EQUAL"]
+                    ]
+                    },
+                    {
+                    "type": "input_value",
+                    "name": "B"
+                    }
+                ],
+                "output": "Boolean",
+                "colour": 210,
+                "inputsInline": true,
+                "tooltip": "Performs selected logical or comparison operation.",
+                "helpUrl": ""
+            },
+            {//logic not
+                "type": "logic_not",
+                "message0": "!%1",
+                "args0": [
+                    {
+                    "type": "input_value",
+                    "name": "A"
+                    }
+                ],
+                "output": "Boolean",
+                "colour": 210,
+                "tooltip": "Returns true if the condition is false.",
                 "helpUrl": ""
             }
         ]);
