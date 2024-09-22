@@ -8,9 +8,10 @@
 
 # 流程圖：
 1. 設計網站雛形
-2. 設計blockly
-3. 製作上傳下載cpp
-4. 美化網站並架設網站
-### 目前進度： 製作上傳下載cpp
+2. 設計blockly for c++
+3. 製作上傳下載.xml
+4. 製作上傳下載.cpp
+5. 美化網站並架設網站
+### 目前進度： 製作上傳下載.cpp
 
 # [C Blockly]"https://hueyanchen.github.io/"
