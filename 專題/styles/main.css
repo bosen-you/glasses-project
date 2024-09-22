@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.workspace-controls-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#blocklyDiv {
+    height: 100%;
+    width: 100%;
+    border: 2px solid #ccc;
+}
+
+#controls {
+    height: 100%;
+    width: 30%;
+    margin-left: 20px;
+    overflow-y: auto;
+}
+
+button, input[type="file"] {
+    display: block;
+    margin: 10px 0;
+}
+
+input[type="file"] {
+    padding: 8px;
+}
