@@ -8,37 +8,36 @@
     <script src="https://unpkg.com/minecraft-framework-css@1.1.9/css/assets/script.js"></script>
     <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <style>
-        /* 設定了一個佈局為垂直排列的區塊，佔據 90% 的瀏覽器高度 */
         .container {
             display: flex;
             flex-direction: column;
             height: 90vh;
         }
-        /* 左側顯示 Blockly 編輯器，右側顯示控制按鈕區 */
+
         .workspace-controls-container {
             display: flex;
             flex-direction: row;
             height: 100%;
         }
-        /* 定義 Blockly 工作區的大小和邊框 */
+
         #blocklyDiv {
             height: 100%;
             width: 100%;
             border: 2px solid #ccc;
         }
-    
+
         #controls {
             height: 100%;
             width: 30%;
             margin-left: 20px;
             overflow-y: auto;
         }
-    
+
         button, input[type="file"] {
             display: block;
             margin: 10px 0;
         }
-    
+
         input[type="file"] {
             padding: 8px;
         }
@@ -60,297 +59,529 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
     <script>
         var workspace = Blockly.inject('blocklyDiv', {
-            toolbox: ` 
+            toolbox: `
                 <xml>
-                    <category name="邏輯與比較" colour="210">
-                        <block type="controls_if"></block>
-                        <block type="logic_compare"></block>
-                        <block type="logic_operation"></block>
-                        <block type="logic_negate"></block>
-                        <block type="logic_boolean"></block>
-                        <block type="logic_null"></block>
-                        <block type="logic_ternary"></block>
-                    </category>
-                    <category name="迴圈" colour="120">
-                        <block type="controls_repeat_ext">
-                            <value name="TIMES">
-                                <shadow type="math_number">
-                                    <field name="NUM">10</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="controls_whileUntil"></block>
-                        <block type="controls_for">
-                            <value name="FROM">
-                                <shadow type="math_number">
-                                    <field name="NUM">1</field>
-                                </shadow>
-                            </value>
-                            <value name="TO">
-                                <shadow type="math_number">
-                                    <field name="NUM">10</field>
-                                </shadow>
-                            </value>
-                            <value name="BY">
-                                <shadow type="math_number">
-                                    <field name="NUM">1</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="controls_forEach"></block>
-                        <block type="controls_flow_statements"></block>
-                    </category>
-                    <category name="數學運算" colour="230">
-                        <block type="math_number"></block>
-                        <block type="math_arithmetic">
-                            <value name="A">
-                                <shadow type="math_number">
-                                    <field name="NUM">1</field>
-                                </shadow>
-                            </value>
-                            <value name="B">
-                                <shadow type="math_number">
-                                    <field name="NUM">1</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_single">
-                            <value name="NUM">
-                                <shadow type="math_number">
-                                    <field name="NUM">9</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_trig">
-                            <value name="NUM">
-                                <shadow type="math_number">
-                                    <field name="NUM">45</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_constant"></block>
-                        <block type="math_number_property">
-                            <value name="NUMBER_TO_CHECK">
-                                <shadow type="math_number">
-                                    <field name="NUM">0</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_round">
-                            <value name="NUM">
-                                <shadow type="math_number">
-                                    <field name="NUM">3.1</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_on_list"></block>
-                        <block type="math_modulo">
-                            <value name="DIVIDEND">
-                                <shadow type="math_number">
-                                    <field name="NUM">64</field>
-                                </shadow>
-                            </value>
-                            <value name="DIVISOR">
-                                <shadow type="math_number">
-                                    <field name="NUM">10</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_constrain">
-                            <value name="VALUE">
-                                <shadow type="math_number">
-                                    <field name="NUM">50</field>
-                                </shadow>
-                            </value>
-                            <value name="LOW">
-                                <shadow type="math_number">
-                                    <field name="NUM">1</field>
-                                </shadow>
-                            </value>
-                            <value name="HIGH">
-                                <shadow type="math_number">
-                                    <field name="NUM">100</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_random_int">
-                            <value name="FROM">
-                                <shadow type="math_number">
-                                    <field name="NUM">1</field>
-                                </shadow>
-                            </value>
-                            <value name="TO">
-                                <shadow type="math_number">
-                                    <field name="NUM">100</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="math_random_float"></block>
-                    </category>
-                    <category name="文本處理" colour="160">
-                        <block type="text"></block>
-                        <block type="text_join"></block>
-                        <block type="text_append">
-                            <value name="TEXT">
-                                <shadow type="text"></shadow>
-                            </value>
-                        </block>
-                        <block type="text_length">
-                            <value name="VALUE">
-                                <shadow type="text">
-                                    <field name="TEXT">abc</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="text_isEmpty">
-                            <value name="VALUE">
-                                <shadow type="text">
-                                    <field name="TEXT"></field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="text_indexOf">
-                            <value name="VALUE">
-                                <block type="variables_get">
-                                    <field name="VAR">{textVariable}</field>
-                                </block>
-                            </value>
-                            <value name="FIND">
-                                <shadow type="text">
-                                    <field name="TEXT">abc</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="text_charAt">
-                            <value name="VALUE">
-                                <block type="variables_get">
-                                    <field name="VAR">{textVariable}</field>
-                                </block>
-                            </value>
-                        </block>
-                        <block type="text_getSubstring">
-                            <value name="STRING">
-                                <block type="variables_get">
-                                    <field name="VAR">{textVariable}</field>
-                                </block>
-                            </value>
-                        </block>
-                        <block type="text_changeCase">
-                            <value name="TEXT">
-                                <shadow type="text">
-                                    <field name="TEXT">abc</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="text_trim">
-                            <value name="TEXT">
-                                <shadow type="text">
-                                    <field name="TEXT">abc</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="text_print">
-                            <value name="TEXT">
-                                <shadow type="text">
-                                    <field name="TEXT">abc</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="text_prompt_ext">
-                            <value name="TEXT">
-                                <shadow type="text">
-                                    <field name="TEXT">abc</field>
-                                </shadow>
-                            </value>
-                        </block>
-                    </category>
-                    <category name="列表操作" colour="260">
-                        <block type="lists_create_with">
-                            <mutation items="0"></mutation>
-                        </block>
-                        <block type="lists_create_with"></block>
-                        <block type="lists_repeat">
-                            <value name="NUM">
-                                <shadow type="math_number">
-                                    <field name="NUM">5</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="lists_length"></block>
-                        <block type="lists_isEmpty"></block>
-                        <block type="lists_indexOf">
-                            <value name="VALUE">
-                                <block type="variables_get">
-                                    <field name="VAR">{listVariable}</field>
-                                </block>
-                            </value>
-                        </block>
-                        <block type="lists_getIndex">
-                            <value name="VALUE">
-                                <block type="variables_get">
-                                    <field name="VAR">{listVariable}</field>
-                                </block>
-                            </value>
-                        </block>
-                        <block type="lists_setIndex">
-                            <value name="LIST">
-                                <block type="variables_get">
-                                    <field name="VAR">{listVariable}</field>
-                                </block>
-                            </value>
-                        </block>
-                        <block type="lists_getSublist">
-                            <value name="LIST">
-                                <block type="variables_get">
-                                    <field name="VAR">{listVariable}</field>
-                                </block>
-                            </value>
-                        </block>
-                        <block type="lists_split">
-                            <value name="DELIM">
-                                <shadow type="text">
-                                    <field name="TEXT">,</field>
-                                </shadow>
-                            </value>
-                        </block>
-                        <block type="lists_sort"></block>
-                    </category>
-                    <category name = "標準函式庫" colour = "400">
-                        <category name = "array" colour = "450">   
-                            <category name = "vector" colour = "500">
-                                <description> first in last out(FILO) </description>
-
-                            </category>
-                            <category name = "deque" colour = "501">
-                                <description> first in first out(FIFO) </description>
-
-                            </category>
-                            <category name = "set" colour = "503">
-                                <description> container that contains a sorted set of unique objects of type Key </description>
-
-                            </category>
-                            <category name = "unordered_set" colour = "504">
-                            </category>
+                        <category name="自定義變數" colour="60">
+                            <block type="variable_declaration"></block>
+                            <block type="variable_assignment"></block>
+                            <block type="variable_get"></block>
                         </category>
-                    <category name = "algorithm" colour = "500">
-
-                    </category>
-                    <category name = "string" colour = "500">
-
-                    </category>
-                    <category name = "climit" colour = "500">
-
-                    </category>
-                    </category>
-                    <sep></sep>
-                    <category name="變數" colour="330" custom="VARIABLE"></category>
-                    <category name="函數" colour="290" custom="PROCEDURE"></category>
+                        <category name="自定義函式" colour="290">
+                            <block type="basic_function_definition"></block>
+                            <block type="function_call"></block>
+                        </category>
+                        <category name="邏輯運算子" colour="210">
+                        </category>
+                        <category name="數學與運算" colour="230">
+                        </category>
+                        <category name="文本操作" colour="160">
+                            <block type="comment_block"></block>
+                        </category>
+                        <category name="條件與迴圈" colour="260">
+                            <block type="controls_if"></block>
+                            <block type="switch_block"></block>
+                            <block type="case_block"></block>
+                            <block type="default_block"></block>
+                            <block type="while_block"></block>
+                            <block type="for_block"></block>
+                            <block type="break_block"></block>
+                            <block type="continue_block"></block>
+                            <block type="return_block"></block>
+                        </category>
+                        <category name="輸入與輸出" colour="120">
+                            <block type="cin_block"></block>
+                            <block type="cout_block"></block>
+                        </category>
+                        <sep></sep>
+                        <category name="函式庫" colour="300">
+                        </category>
+                        <category name="主函式" colour="120">
+                            <block type="main_block"></block>
+                        </category>
+                        <sep></sep>
+                        <category name="測試 Block" colour="290">
+                        </category>
                 </xml>
             `
         });
+
+        Blockly.defineBlocksWithJsonArray([
+            {
+                "type": "cin_block",
+                "message0": "cin %1",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "VAR",
+                        "check": "Variable"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 120,
+                "tooltip": "從標準輸入讀取並存儲到變數中",
+                "helpUrl": ""
+            },
+            {
+                "type": "cout_block",
+                "message0": "cout %1",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "TEXT",
+                        "check": "String"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 120,
+                "tooltip": "輸出文本或變數的值到標準輸出",
+                "helpUrl": ""
+            },
+            {
+                "type": "controls_if",
+                "message0": "if %1",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "IF0",
+                        "check": "Boolean"
+                    }
+                ],
+                "message1": "do %1",
+                "args1": [
+                    {
+                        "type": "input_statement",
+                        "name": "DO0"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 260,
+                "tooltip": "如果條件為真，執行",
+                "helpUrl": "",
+                "mutator": "controls_if_mutator"
+            },
+            {
+                "type": "for_block",
+                "message0": "for %1  %2  %3  %4   %5 ",
+                "args0": [
+                    {
+                        "type": "field_variable",
+                        "name": "VAR",
+                        "variable": "i"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "INIT",
+                        "check": "Number"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "CONDITION",
+                        "check": "Boolean"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "INCREMENT",
+                        "check": "Number"
+                    },
+                    {
+                        "type": "input_statement",
+                        "name": "DO"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 260,
+                "tooltip": "重複執行直到條件為假",
+                "helpUrl": ""
+            },
+            {
+                "type": "while_block",
+                "message0": "while %1  %2 ",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "CONDITION",
+                        "check": "Boolean"
+                    },
+                    {
+                        "type": "input_statement",
+                        "name": "DO"
+                    }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 260,
+                "tooltip": "重複執行直到條件為假",
+                "helpUrl": ""
+            },
+            {
+                "type": "main_block",
+                "message0": "int main() %1 %2 return %3",
+                "args0": [
+                {
+                    "type": "input_dummy"
+                },
+                {
+                    "type": "input_statement",
+                    "name": "DO"
+                },
+                {
+                    "type": "input_value",
+                    "name": "RETURN_VALUE",
+                    "check": "Number",
+                    "default": "0"
+                }
+                ],
+                "colour": 120,
+                "tooltip": "主函式，接受命令行參數",
+                "helpUrl": ""
+            },
+            {
+                "type": "switch_block",
+                "message0": "switch %1 %2 %3",
+                "args0": [
+                {
+                    "type": "input_value",
+                    "name": "SWITCH_VALUE"
+                },
+                {
+                    "type": "input_statement",
+                    "name": "DO"
+                },
+                {
+                    "type": "input_dummy"
+                }
+                ],
+                "colour": 260,
+                "previousStatement": null,
+                "nextStatement": null,
+                "tooltip": "Switch 語句",
+                "helpUrl": ""
+            },
+            {
+                "type": "case_block",
+                "message0": "case %1: %2",
+                "args0": [
+                {
+                    "type": "input_value",
+                    "name": "CASE_VALUE"
+                },
+                {
+                    "type": "input_statement",
+                    "name": "DO"
+                }
+                ],
+                "previousStatement": null,
+                "nextStatement": null,
+                "colour": 260,
+                "tooltip": "Case 語句",
+                "helpUrl": ""
+            },
+            {
+                "type": "default_block",
+                "message0": "default: %1",
+                "args0": [
+                {
+                    "type": "input_statement",
+                    "name": "DO"
+                }
+                ],
+                "previousStatement": null,
+                "colour": 260,
+                "tooltip": "Default 語句",
+                "helpUrl": ""
+            },
+            {
+                "type": "break_block",
+                "message0": "break",
+                "colour": 260,
+                "previousStatement": null,
+                "nextStatement": null,
+                "tooltip": "退出當前的循環或 switch 語句",
+                "helpUrl": ""
+            },
+            {
+                "type": "continue_block",
+                "message0": "continue",
+                "colour": 260,
+                "previousStatement": null,
+                "nextStatement": null,
+                "tooltip": "跳過當前迴圈的剩餘部分，直接進入下一次迴圈",
+                "helpUrl": ""
+            },
+            {
+                "type": "return_block",
+                "message0": "return %1",
+                "args0": [
+                {
+                    "type": "input_value",
+                    "name": "RETURN_VALUE",
+                    "check": "Number"
+                }
+                ],
+                "colour": 260,
+                "previousStatement": null,
+                "tooltip": "從函式返回值",
+                "helpUrl": ""
+            },
+            {
+                "type": "basic_function_definition",
+                "message0": "function %1 %2 %3 %4 %5",
+                "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "FUNC_NAME",
+                    "variable": "myFunction"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "RETURN_TYPE",
+                    "options": [
+                    ["void", "void"],
+                    ["int", "int"],
+                    ["float", "float"],
+                    ["double", "double"],
+                    ["char", "char"],
+                    ["string", "std::string"]
+                    ]
+                },
+                {
+                    "type": "input_dummy"
+                },
+                {
+                    "type": "input_statement",
+                    "name": "DO"
+                },
+                {
+                    "type": "input_dummy"
+                }
+                ],
+                "colour": 290,
+                "tooltip": "定義一個基本的 C++ 函數",
+                "helpUrl": ""
+            },
+            {
+                "type": "function_call",
+                "message0": "%1",
+                "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "FUNC_NAME",
+                    "variable": "myFunction"
+                }
+                ],
+                "colour": 290,
+                "previousStatement": null,
+                "nextStatement": null,
+                "tooltip": "調用一個函數",
+                "helpUrl": ""
+            },
+            {
+                "type": "comment_block",
+                "message0": "// %1",
+                "args0": [
+                {
+                    "type": "field_input",
+                    "name": "COMMENT",
+                    "text": "註解"
+                }
+                ],
+                "colour": 160,
+                "previousStatement": null,
+                "nextStatement": null,
+                "tooltip": "添加註解",
+                "helpUrl": ""
+            },
+            {
+                "type": "variable_declaration",
+                "message0": "declare %1 %2 = %3",
+                "args0": [
+                {
+                    "type": "field_dropdown",
+                    "name": "TYPE",
+                    "options": [
+                    ["int", "int"],
+                    ["float", "float"],
+                    ["double", "double"],
+                    ["char", "char"],
+                    ["string", "std::string"]
+                    ]
+                },
+                {
+                    "type": "field_variable",
+                    "name": "VAR_NAME",
+                    "variable": "myVar"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                }
+                ],
+                "colour": 60,
+                "tooltip": "宣告一個變數",
+                "helpUrl": ""
+            },
+            {
+                "type": "variable_assignment",
+                "message0": "%1 = %2",
+                "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR_NAME",
+                    "variable": "myVar"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                }
+                ],
+                "colour": 60,
+                "tooltip": "賦予變數新的值或算式",
+                "helpUrl": ""
+            },
+            {
+                "type": "variable_get",
+                "message0": "%1",
+                "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR_NAME",
+                    "variable": "myVar"
+                }
+                ],
+                "output": null,
+                "colour": 60,
+                "tooltip": "獲取變數的值",
+                "helpUrl": ""
+            }
+        ]);
+
+        Blockly.Cpp['variable_declaration'] = function(block) {
+            var type = block.getFieldValue('TYPE');
+            var varName = Blockly.Cpp.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
+            var value = Blockly.Cpp.valueToCode(block, 'VALUE', Blockly.Cpp.ORDER_ASSIGNMENT) || '0'; // 預設值
+            return `${type} ${varName} = ${value};\n`;
+        };
+
+        Blockly.Cpp['variable_assignment'] = function(block) {
+            var varName = Blockly.Cpp.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
+            var value = Blockly.Cpp.valueToCode(block, 'VALUE', Blockly.Cpp.ORDER_ASSIGNMENT) || '0';
+            return `${varName} = ${value};\n`;
+        };
+
+        Blockly.Cpp['variable_get'] = function(block) {
+            var varName = Blockly.Cpp.variableDB_.getName(block.getFieldValue('VAR_NAME'), Blockly.Variables.NAME_TYPE);
+            return varName;
+        };
+
+        Blockly.Cpp['comment_block'] = function(block) {
+            var comment = block.getFieldValue('COMMENT');
+            return `// ${comment}\n`;
+        };
+
+        Blockly.Cpp['function_call'] = function(block) {
+            var funcName = Blockly.Cpp.variableDB_.getName(block.getFieldValue('FUNC_NAME'), Blockly.Variables.NAME_TYPE);
+            return `${funcName}();\n`;
+        };
+
+        Blockly.Cpp['basic_function_definition'] = function(block) {
+            var funcName = Blockly.Cpp.variableDB_.getName(block.getFieldValue('FUNC_NAME'), Blockly.Variables.NAME_TYPE);
+            var returnType = block.getFieldValue('RETURN_TYPE');
+            var body = Blockly.Cpp.statementToCode(block, 'DO') || '// 函數執行的代碼\n';
+
+            if (returnType === 'void') {
+                return `${returnType} ${funcName}() {\n${body}}\n`;
+            } else {
+                return `${returnType} ${funcName}() {\n${body} return 0;\n}\n`;
+            }
+        };
+
+        Blockly.Cpp['break_block'] = function() {
+            return 'break;\n';
+        };
+
+        Blockly.Cpp['continue_block'] = function() {
+            return 'continue;\n';
+        };
+
+        Blockly.Cpp['return_block'] = function(block) {
+            var returnValue = Blockly.Cpp.valueToCode(block, 'RETURN_VALUE', Blockly.Cpp.ORDER_NONE) || '0';
+            return `return ${returnValue};\n`;
+        };
+
+        Blockly.Cpp['switch_block'] = function(block) {
+            var switchValue = Blockly.Cpp.valueToCode(block, 'SWITCH_VALUE', Blockly.Cpp.ORDER_NONE) || '0';
+            var caseStatements = Blockly.Cpp.statementToCode(block, 'DO');
+            var code = `switch (${switchValue}) {\n${caseStatements}}\n`;
+            return code;
+        };
+
+        Blockly.Cpp['case_block'] = function(block) {
+            var caseValue = Blockly.Cpp.valueToCode(block, 'CASE_VALUE', Blockly.Cpp.ORDER_NONE) || '0';
+            var statements_do = Blockly.Cpp.statementToCode(block, 'DO');
+            var code = `case ${caseValue}:\n${statements_do}  break;\n`;
+            return code;
+        };
+
+        Blockly.Cpp['default_block'] = function(block) {
+            var statements_do = Blockly.Cpp.statementToCode(block, 'DO');
+            var code = `default:\n${statements_do}  break;\n`;
+            return code;
+        };
+
+        Blockly.Cpp['main_block'] = function(block) {
+            var statements_body = Blockly.Cpp.statementToCode(block, 'BODY');
+            return `int main() {\n${statements_body}return 0;\n}\n`;
+        };
+
+        Blockly.Cpp['controls_if'] = function(block) {
+            var n = 0;
+            var code = '';
+            do {
+                var conditionCode = Blockly.Cpp.valueToCode(block, 'IF' + n, Blockly.Cpp.ORDER_NONE) || 'false';
+                var branchCode = Blockly.Cpp.statementToCode(block, 'DO' + n);
+                code += (n === 0 ? 'if (' : ' else if (') + conditionCode + ') {\n' + branchCode + '}\n';
+                ++n;
+            } while (block.getInput('IF' + n));
+
+            if (block.getInput('ELSE')) {
+                var elseBranch = Blockly.Cpp.statementToCode(block, 'ELSE');
+                code += ' else {\n' + elseBranch + '}\n';
+            }
+            return code;
+        };
+
+        Blockly.Cpp['for_block'] = function(block) {
+            var varName = Blockly.Cpp.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+            var init = Blockly.Cpp.valueToCode(block, 'INIT', Blockly.Cpp.ORDER_NONE);
+            var condition = Blockly.Cpp.valueToCode(block, 'CONDITION', Blockly.Cpp.ORDER_NONE) || 'false';
+            var increment = Blockly.Cpp.valueToCode(block, 'INCREMENT', Blockly.Cpp.ORDER_NONE);
+            var branch = Blockly.Cpp.statementToCode(block, 'DO');
+            return `for (int ${varName} = ${init}; ${condition}; ${increment}) {\n${branch}}\n`;
+        };
+
+        Blockly.Cpp['while_block'] = function(block) {
+            var condition = Blockly.Cpp.valueToCode(block, 'CONDITION', Blockly.Cpp.ORDER_NONE) || 'false';
+            var branch = Blockly.Cpp.statementToCode(block, 'DO');
+            return `while (${condition}) {\n${branch}}\n`;
+        };
+
+        Blockly.Cpp['cin_block'] = function(block) {
+            var value_var = Blockly.Cpp.valueToCode(block, 'VAR', Blockly.Cpp.ORDER_ATOMIC) || 'variable';
+            var code = 'std::cin >> ' + value_var + ';\n';
+            return code;
+        };
+
+        Blockly.Cpp['cout_block'] = function(block) {
+            var argument = Blockly.Cpp.valueToCode(block, 'TEXT', Blockly.Cpp.ORDER_NONE) || '""';
+            var code = 'std::cout << ' + argument + ' << std::endl;\n';
+            return code;
+        };
 
         function saveWorkspaceAsXML() {
             var xml = Blockly.Xml.workspaceToDom(workspace);
@@ -365,33 +596,35 @@
         function handleXMLUpload(event) {
             var file = event.target.files[0];
             if (file) {
-                if (workspace.getAllBlocks().length > 0) {
-                    var confirmReplace = confirm("You have unsaved blocks. Do you want to replace the current workspace?");
-                    if (!confirmReplace) return; // Cancel the upload
-                }
-                
                 var reader = new FileReader();
-                reader.onload = function(e) {
-                    var xmlText = e.target.result;
-                    var parser = new DOMParser();
-                    var xml = parser.parseFromString(xmlText, "text/xml");
-                    Blockly.Xml.clearWorkspaceAndLoadFromXml(xml.documentElement, workspace);
+                reader.onload = function(event) {
+                    var xml_text = event.target.result;
+                    var xml = Blockly.Xml.textToDom(xml_text);
+                    Blockly.Xml.domToWorkspace(xml, workspace);
                 };
                 reader.readAsText(file);
             }
         }
 
         function saveCodeAsCPP() {
-            var cppCode = Blockly.Cpp.workspaceToCode(workspace);
-            var blob = new Blob([cppCode], { type: 'text/plain' });
-            var link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'program.cpp';
+            var code = Blockly.Cpp.workspaceToCode(workspace);
+            var blob = new Blob([code], {type: "text/plain"});
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "code.cpp";
             link.click();
         }
 
         function loadCodeFromCPP(event) {
-            // Logic to process and load C++ files can be added here
+            var file = event.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    var code = event.target.result;
+                    // 這裡可以解析 C++ 代碼並將其轉換回 Blockly 積木
+                };
+                reader.readAsText(file);
+            }
         }
     </script>
 </body>
