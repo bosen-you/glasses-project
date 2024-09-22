@@ -84,11 +84,22 @@
                         </category>
                         <category name="條件與迴圈" colour="260">
                             <block type="controls_if"></block>
-                            <block type="switch_block"></block>
-                            <block type="case_block"></block>
-                            <block type="default_block"></block>
-                            <block type="while_block"></block>
+                            <block type="switch_block">
+                                <statement name="DO">
+                                    <block type="default_block">
+                                        <statement name="DO">
+                                            <block type="break_block"></block>
+                                        </staement>
+                                    </block>
+                                </staement>
+                            </block>
+                            <block type="case_block">
+                                <statement name="DO">
+                                    <block type="break_block"></block>
+                                </staement>
+                            </block>
                             <block type="for_block"></block>
+                            <block type="while_block"></block>
                             <block type="break_block"></block>
                             <block type="continue_block"></block>
                             <block type="return_block"></block>
@@ -616,13 +627,13 @@
         Blockly.Cpp['case_block'] = function(block) {
             var caseValue = Blockly.Cpp.valueToCode(block, 'CASE_VALUE', Blockly.Cpp.ORDER_NONE) || '0';
             var statements_do = Blockly.Cpp.statementToCode(block, 'DO');
-            var code = `case ${caseValue}:\n${statements_do}  break;\n`;
+            var code = `case ${caseValue}:\n${statements_do}\n`;
             return code;
         };
 
         Blockly.Cpp['default_block'] = function(block) {
             var statements_do = Blockly.Cpp.statementToCode(block, 'DO');
-            var code = `default:\n${statements_do}  break;\n`;
+            var code = `default:\n${statements_do}\n`;
             return code;
         };
 
