@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-    <div class="container" cursor="pointer">
+    <div class="container" cursor="arrow">
         <h1 class="dialogue-box">Blockly C++ Editor By Ericbob</h1>
         <div class="workspace-controls-container">
             <div id="blocklyDiv" class="dialogue-box"></div>
@@ -78,6 +78,15 @@
                             <block type="logic_not"></block>
                         </category>
                         <category name="數學與運算" colour="230">
+                            <block type="math_caculacte"></block>
+                            <block type="math_sqrt"></block>
+                            <block type="math_abs"></block>
+                            <block type="math_sine"></block>
+                            <block type="math_cosine"></block>
+                            <block type="math_tangent"></block>
+                            <block type="math_ceil"></block>
+                            <block type="math_floor"></block>
+                            <block type="math_random"></block>
                         </category>
                         <category name="文本操作" colour="160">
                             <block type="comment_block"></block>
@@ -556,6 +565,125 @@
                 "output": "Boolean",
                 "colour": 210,
                 "tooltip": "Returns true if the condition is false.",
+                "helpUrl": ""
+            },
+            {//math caculacte
+                "type": "math_caculacte",
+                "message0": "%1  %2  %3",
+                "args0": [
+                    {
+                        "type": "input_value",
+                         "name": "A"
+                    },
+                    {
+                    "type": "field_dropdown",
+                    "name": "OPERATOR",
+                    "options": [
+                        ["+", "ADD"],
+                        ["-", "SUBTRACT"],
+                        ["*", "MUTIPLY"],
+                        ["/", "DEVIDE"],
+                        ["%", "MODULO"],
+                        ["^", "POWER"]
+                    ]
+                    },
+                    {
+                        "type": "input_value",
+                         "name": "B"
+                    }
+                ],
+                "output": "Number",
+                "colour": 230,
+                "inputsInline": true,
+                "tooltip": "運算",
+                "helpUrl": ""
+            },
+            {//sqrt
+                "type": "math_sqrt",
+                "message0": "sqrt(%1)",
+                "args0": [
+                    {"type": "input_value", "name": "X"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "平方根運算",
+                "helpUrl": ""
+            },
+            {//abs
+                "type": "math_abs",
+                "message0": "abs(%1)",
+                "args0": [
+                    {"type": "input_value", "name": "A"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "絕對值運算",
+                "helpUrl": ""
+            },
+            {//sin
+                "type": "math_sine",
+                "message0": "sin(%1)",
+                "args0": [
+                    {"type": "input_value", "name": "ANGLE"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "正弦運算",
+                "helpUrl": ""
+            },
+            {//cos
+                "type": "math_cosine",
+                "message0": "cos(%1)",
+                "args0": [
+                    {"type": "input_value", "name": "ANGLE"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "余弦運算",
+                "helpUrl": ""
+            },
+            {//tan
+                "type": "math_tangent",
+                "message0": "tan(%1)",
+                "args0": [
+                    {"type": "input_value", "name": "ANGLE"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "正切運算",
+                "helpUrl": ""
+            },
+            {//ceil
+                "type": "math_ceil",
+                "message0": "ceil(%1)",
+                "args0": [
+                    {"type": "input_value", "name": "X"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "向上取整",
+                "helpUrl": ""
+            },
+            {//floor
+                "type": "math_floor",
+                "message0": "floor(%1)",
+                "args0": [
+                    {"type": "input_value", "name": "X"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "向下取整",
+                "helpUrl": ""
+            },
+            {//random
+                "type": "math_random",
+                "message0": "rand() % %1",
+                "args0": [
+                    {"type": "input_value", "name": "RANGE"}
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "隨機數生成",
                 "helpUrl": ""
             }
         ]);
