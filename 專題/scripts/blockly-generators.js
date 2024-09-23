@@ -1,3 +1,13 @@
+Blockly.Cpp['number'] = function(block) {
+    var number = block.getFieldValue('NUMBER');
+    return [number, Blockly.Cpp.ORDER_ATOMIC];
+};
+
+Blockly.Cpp['text'] = function(block) {
+    var text = Blockly.Cpp.quote_(block.getFieldValue('TEXT'));
+    return [text, Blockly.Cpp.ORDER_ATOMIC];
+};
+
 Blockly.Cpp['boost_scanf'] = function(block) {
     var format = Blockly.Cpp.valueToCode(block, 'FORMAT', Blockly.Cpp.ORDER_ATOMIC);
     return 'scanf("%s", ' + format + ');\n';
