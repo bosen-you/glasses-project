@@ -46,6 +46,7 @@ var workspace = Blockly.inject('blocklyDiv', {
                 </category>
 
                 <category name="數學與運算" colour="230">
+                    <block type="number"></block>
                     <block type="math_caculacte"></block>
                     <block type="math_sqrt"></block>
                     <block type="math_abs"></block>
@@ -82,6 +83,7 @@ var workspace = Blockly.inject('blocklyDiv', {
 
                 <sep></sep>
                 <category name="文本操作" colour="160">
+                    <block type="text"></block>
                     <block type="comment_block"></block>
                 </category>
 
