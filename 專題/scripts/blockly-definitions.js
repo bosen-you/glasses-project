@@ -676,6 +676,36 @@ Blockly.defineBlocksWithJsonArray([
                 "name" : "VALUE"
             }
         ]
-    }
+    },
+    {//number
+                "type": "number",
+                "message0": "number %1",
+                "args0": [
+                    {
+                        "type": "field_number",
+                        "name": "NUMBER",
+                        "value": 0
+                    }
+                ],
+                "output": "Number",
+                "colour": 230,
+                "tooltip": "數字",
+                "helpUrl": ""
+            },
+            {//text
+                "type": "text",
+                "message0": "text %1",
+                "args0": [
+                    {
+                        "type": "field_input",
+                        "name": "TEXT",
+                        "text": "Hellow world"
+                    }
+                ],
+                "output": "String",
+                "colour": 160,
+                "tooltip": "文本",
+                "helpUrl": ""
+            }
 ]);
 
